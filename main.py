@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from typing import Optional
 
 
 
@@ -35,3 +35,13 @@ async def greet_name(name: str) -> dict:
 async def greet_name_v2(name: str, age: int) -> dict:
     return {"message": f"hello {name}, age: {age}"}
 # http://127.0.0.1:8000/greet-v2/?name=trevor?age=29
+
+
+
+
+
+# path and query param mixed with default values
+@app.get('/greet-v3')
+async def greet_name_v3(name: Optional[str] = "User", age: int = 0) -> dict:
+    return {"message": f"hello {name}, age: {age}"}
+# http://127.0.0.1:8000/greet-v3
