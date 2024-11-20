@@ -17,3 +17,12 @@ async def read_root():
 async def greet_name(name: str) -> dict:
     return {"message": f'Hello {name}'}
 # http://127.0.0.1:8000/greet/john
+# http://127.0.0.1:8000/greet/?name=wick
+
+
+
+# query param
+@app.get('/greet')
+async def greet_name(name: str) -> dict:
+    return {"message": f'Hello {name}'}
+# http://127.0.0.1:8000/greet/?name=wick
