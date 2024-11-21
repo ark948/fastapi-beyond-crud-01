@@ -1,10 +1,6 @@
 > fastapi dev src/
 
 
-
-
-
-
 IMPORTANT: env> database connection url must not be DATABASE_URL
 i changed it to DB_URL and it worked
 
@@ -16,3 +12,28 @@ VERY IMPORTANT:
 Column from sqlmodel is from pydantic and will raise errors later in retrieving data
 sa_column from sqlalchemy must be used with it. (look at created_at and updated_at fields in book model)
 commit: 0001 fix
+
+
+
+when creating a model, in datetime fields such as publilshed_date, we insert date object
+when retrieving, we get back str (in schema)
+this is the way that should be
+SUMMARY: inserting datetimes published_date field (and similar fields) must be str (in schema)
+        inserting (in service, we'll use datetime.strptime)
+        getting back must be always date (in schema)
+generally: model fields and schema fields must be of the same type
+
+
+
+
+psql commands:
+> \list (list all databases)
+> \c <db name> (connect to a db)
+> \dt (list tables)
+> select * from <table name> where false; (a select that will return nothing, just to see all column names)
+
+
+
+
+
+3.20.11
