@@ -1,1 +1,9 @@
 > fastapi dev src/
+
+
+
+
+
+
+IMPORTANT: env> database connection url must not be DATABASE_URL
+i changed it to DB_URL and it worked
