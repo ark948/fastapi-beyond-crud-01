@@ -7,3 +7,12 @@
 
 IMPORTANT: env> database connection url must not be DATABASE_URL
 i changed it to DB_URL and it worked
+
+
+
+
+
+VERY IMPORTANT:
+Column from sqlmodel is from pydantic and will raise errors later in retrieving data
+sa_column from sqlalchemy must be used with it. (look at created_at and updated_at fields in book model)
+commit: 0001 fix
