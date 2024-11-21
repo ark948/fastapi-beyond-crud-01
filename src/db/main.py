@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 
 async_engine = AsyncEngine(
-    create_engine(url=Config.DB_URL, echo=True)
+    create_engine(url=Config.DB_URL)
 )
 
 

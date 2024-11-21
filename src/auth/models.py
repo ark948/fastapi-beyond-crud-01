@@ -22,7 +22,7 @@ class User(SQLModel, table=True):
     first_name: str
     last_name: str
     is_verified: bool = Field(default=False)
-    password: str
+    password_hash: str = Field(exclude=True) # exclude -> do not serialize
     created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
     updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
 
