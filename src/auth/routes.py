@@ -6,10 +6,12 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.utils import create_access_token, decode_token, verify_password
 from fastapi.responses import JSONResponse
 from datetime import timedelta
+from src.auth.dependencies import AccessTokenBearer
 
 
 auth_router = APIRouter()
 user_service = UserService()
+
 
 
 REFRESH_TOKEN_EXPIRY = 2
