@@ -51,4 +51,6 @@ psql commands:
 }
 
 
-4.41
+5.00
+
+> pip install pyjwt
