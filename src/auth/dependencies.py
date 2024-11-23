@@ -13,7 +13,7 @@ class TokenBearer(HTTPBearer):
         creds = await super().__call__(request)
         token = creds.credentials
         token_data = decode_token(token)
-        if not self.token_valid:
+        if not self.token_valid(token):
             raise HTTPException(
                 status_code=403, detail="Invalid or expired token")
         

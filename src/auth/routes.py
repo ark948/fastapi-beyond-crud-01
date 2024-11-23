@@ -5,13 +5,15 @@ from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.utils import create_access_token, decode_token, verify_password
 from fastapi.responses import JSONResponse
-from datetime import timedelta
-from src.auth.dependencies import AccessTokenBearer
+from datetime import timedelta, datetime
+from src.auth.dependencies import TokenBearer, AccessTokenBearer, RefreshTokenBearer
+from icecream import ic
+ic.configureOutput(includeContext=True)
+
 
 
 auth_router = APIRouter()
 user_service = UserService()
-
 
 
 REFRESH_TOKEN_EXPIRY = 2
@@ -62,4 +64,14 @@ async def login_users(login_data: UserLoginModel, session: AsyncSession = Depend
                     }
                 }
             )
-    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="Invalid email or password.")
+    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                        detail="Invalid email or password.")
+
+
+@auth_router.post('/refresh-token')
+async def get_new_access_token(token_details: dict = Depends(RefreshTokenBearer())):
+    expiry_timestamp = token_details['exp']
+    if datetime.fromtimestamp(expiry_timestamp) > datetime.now():
+        new_access_token = create_access_token(user_data=token_details["user"])
+        return JSONResponse(content={"access_token": new_access_token})
+    return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired token.")

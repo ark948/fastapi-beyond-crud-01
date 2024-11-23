@@ -6,7 +6,6 @@ from src.auth.utils import genereate_password_hash
 
 
 
-
 class UserService:
     async def get_user_by_email(self, email: str, session: AsyncSession):
         statement = select(User).where(User.email == email)
