@@ -55,7 +55,7 @@ psql commands:
 
 > pip install pyjwt
 
-
+NOTE: after introducing alembic lifespan event is no longer needed for creating database (for other things may be required)
 
 - adding Redis
 > installing redis client
@@ -68,3 +68,6 @@ psql commands:
 
 
 - Role Based Access Control (RBAC)
+- we will implement two roles (admin, users)
+- admins will be able to do anything and crud on users
+- users will have crud on their own books, reviews and account

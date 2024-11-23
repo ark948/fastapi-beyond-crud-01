@@ -6,7 +6,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.utils import create_access_token, decode_token, verify_password
 from fastapi.responses import JSONResponse
 from datetime import timedelta, datetime
-from src.auth.dependencies import TokenBearer, AccessTokenBearer, RefreshTokenBearer
+from src.auth.dependencies import TokenBearer, AccessTokenBearer, RefreshTokenBearer, get_current_user, RoleChecker
 from src.db.redis import add_jti_to_blocklist
 from icecream import ic
 ic.configureOutput(includeContext=True)
@@ -15,6 +15,7 @@ ic.configureOutput(includeContext=True)
 
 auth_router = APIRouter()
 user_service = UserService()
+role_checker = RoleChecker(['admin', 'user'])
 
 
 REFRESH_TOKEN_EXPIRY = 2
@@ -42,7 +43,8 @@ async def login_users(login_data: UserLoginModel, session: AsyncSession = Depend
             access_token = create_access_token(
                 user_data={
                     "email": user.email,
-                    "user_uid": str(user.uid)
+                    "user_uid": str(user.uid),
+                    "role": user.role
                 }
             )
             refresh_token = create_access_token(
@@ -77,6 +79,10 @@ async def get_new_access_token(token_details: dict = Depends(RefreshTokenBearer(
         return JSONResponse(content={"access_token": new_access_token})
     return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired token.")
 
+
+@auth_router.get('/me')
+async def get_current_user(user=Depends(get_current_user), _: bool=Depends(role_checker)):
+    return user
 
 
 @auth_router.get('/logout')
