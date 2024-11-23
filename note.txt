@@ -51,6 +51,20 @@ psql commands:
 }
 
 
-5.46
+6.02
 
 > pip install pyjwt
+
+
+
+- adding Redis
+> installing redis client
+> pip install aioredis
+- create redis.py in db folder
+- add some stuff to env file
+- install redis/redis-stack docker image
+> docker run -p 6379:6379 -it redis/redis-stack:latest
+
+
+
+- Role Based Access Control (RBAC)
