@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
+from src.books.schemas import Book
+from typing import List, Optional
 import uuid
 
 
@@ -13,6 +15,7 @@ class UserModel(BaseModel):
     password_hash: str = Field(exclude=True) # exclude -> do not serialize
     created_at: datetime
     updated_at: datetime
+    books: List[Book]
 
 
 
