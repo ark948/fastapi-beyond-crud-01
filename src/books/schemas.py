@@ -1,13 +1,10 @@
+from src.reviews.schemas import ReviewModel
 from pydantic import BaseModel
 from datetime import datetime, date
+from typing import List
 import uuid
 
 
-
-
-class BookCreateModel(BaseModel):
-    title: str
-    author: str
 
 
 
@@ -22,6 +19,11 @@ class Book(BaseModel):
     language: str
     created_at: datetime
     updated_at: datetime
+
+
+
+class BookDetailModel(Book):
+    reviews: List[ReviewModel]
 
 
 

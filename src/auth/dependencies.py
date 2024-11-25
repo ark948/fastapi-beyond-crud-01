@@ -7,7 +7,7 @@ from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.auth.service import UserService
 from typing import List, Any
-from src.auth.models import User
+from src.db.models import User
 
 
 

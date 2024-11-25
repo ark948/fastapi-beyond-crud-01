@@ -51,7 +51,16 @@ psql commands:
 }
 
 
-6.56
+{
+    "username": "carl1",
+    "email": "carl1@co.com",
+    "first_name": "Carl",
+    "last_name": "Johnson",
+    "password": "test123"
+}
+
+
+7.40
 
 > pip install pyjwt
 
@@ -71,3 +80,11 @@ NOTE: after introducing alembic lifespan event is no longer needed for creating 
 - we will implement two roles (admin, users)
 - admins will be able to do anything and crud on users
 - users will have crud on their own books, reviews and account
+
+
+
+relations:
+user -> book (one-to-many)
+
+user -> review (one-to-many)
+book -> review (one-to-many)
