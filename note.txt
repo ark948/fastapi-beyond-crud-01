@@ -60,7 +60,7 @@ psql commands:
 }
 
 
-7.40
+8.17
 
 > pip install pyjwt
 
@@ -88,3 +88,7 @@ user -> book (one-to-many)
 
 user -> review (one-to-many)
 book -> review (one-to-many)
+
+
+- error handling
+fastapi needs a 'exception handler' to be able to return exceptions as errors
