@@ -60,7 +60,7 @@ psql commands:
 }
 
 
-8.17
+8.52
 
 > pip install pyjwt
 
@@ -92,3 +92,11 @@ book -> review (one-to-many)
 
 - error handling
 fastapi needs a 'exception handler' to be able to return exceptions as errors
+
+
+- middleware
+(in middlewares, do not raise http exceptions)
+if exception is needed, raise it in response not middleware
+any middleware that works with asgi, can also work with fastapi
+
+- setting up CORS (using middleware)
