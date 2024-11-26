@@ -60,7 +60,7 @@ psql commands:
 }
 
 
-8.52
+9.05
 
 > pip install pyjwt
 
@@ -100,3 +100,7 @@ if exception is needed, raise it in response not middleware
 any middleware that works with asgi, can also work with fastapi
 
 - setting up CORS (using middleware)
+
+
+- for email verification:
+> pip install itsdangerous

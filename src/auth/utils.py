@@ -1,6 +1,7 @@
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from src.config import Config
+from itsdangerous import URLSafeTimedSerializer
 
 import uuid
 import jwt
@@ -27,11 +28,11 @@ def verify_password(password: str, hash: str) -> bool:
 def create_access_token(user_data: dict, expiry: timedelta = None, refresh: bool = False):
     payload = {}
     payload['user'] = user_data
-    payload['exp'] = datetime.now() + (expiry if expiry is not None else timedelta(seconds=ACCESS_TOKEN_EXPIRY))
+    payload['exp'] = datetime.now(
+    ) + (expiry if expiry is not None else timedelta(seconds=ACCESS_TOKEN_EXPIRY))
 
     payload['jti'] = str(uuid.uuid4())
     payload['refresh'] = refresh
-
 
     token = jwt.encode(
         payload=payload,
@@ -53,3 +54,22 @@ def decode_token(token: str) -> dict:
     except jwt.PyJWTError as e:
         logging.exception(e)
         return None
+
+
+serializer = URLSafeTimedSerializer(
+        secret_key=Config.JWT_SECRET,
+        salt="email-configuration"
+    )
+
+
+def create_url_safe_token(data: dict):
+    token = serializer.dumps(data)
+    return token
+
+
+def decode_url_save_token(token: str):
+    try:
+        token_data = serializer.loads(token)
+        return token_data
+    except Exception as e:
+        logging.error(str(e))
