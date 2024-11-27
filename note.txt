@@ -35,26 +35,7 @@ psql commands:
 
 
 
-
-{
-  "first_name": "john",
-  "last_name": "doe",
-  "username": "johndoe2",
-  "email": "johndoe2@co.com",
-  "password": "test1234"
-}
-
-
-{
-  "first_name": "john",
-  "last_name": "doe",
-  "username": "johndoe3",
-  "email": "johndoe3@co.com",
-  "password": "test1234"
-}
-
-
-9.05
+10.21
 
 > pip install pyjwt
 
@@ -98,3 +79,8 @@ any middleware that works with asgi, can also work with fastapi
 
 - for email verification:
 > pip install itsdangerous
+
+
+
+- password reset
+(password reset works, but need a way to revoke old tokens after password is successfully reset)

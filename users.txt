@@ -23,3 +23,22 @@
     "last_name": "Johnson",
     "password": "test123"
 }
+
+
+{
+  "first_name": "john",
+  "last_name": "doe",
+  "username": "johndoe2",
+  "email": "johndoe2@co.com",
+  "password": "test1234"
+}
+
+
+verified account
+{
+  "first_name": "john",
+  "last_name": "doe",
+  "username": "johndoe3",
+  "email": "johndoe3@co.com",
+  "password": "test1234" -> resetted to test1234test
+}
