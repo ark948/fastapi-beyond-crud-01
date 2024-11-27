@@ -13,6 +13,7 @@ DATABASE_URL = getenv("DB_URL")
 class Settings(BaseSettings):
     DB_URL: str
     JWT_SECRET: str
+    SECRET_KEY: str
     JWT_ALGORITHM: str
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379

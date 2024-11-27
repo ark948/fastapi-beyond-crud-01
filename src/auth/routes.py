@@ -60,13 +60,20 @@ async def create_user_account(user_data: UserCreateModel, session: AsyncSession 
         <h1>Verify your email</h1>
         <p>Please click on this <a href="{link}">link</a> to verify your email</p>
         """
-    message = create_message(
-        recipient=[email],
-        subject="Verify your email",
-        body=html_message
-    )
+    try:
 
-    await mail.send_message(message)
+        message = create_message(
+            recipient=[email],
+            subject="Verify your email",
+            body=html_message
+        )
+    except Exception as error:
+        print("MESSAGE WAS NOT CREATED\n")
+    print("\n\n", link, "\n\n")
+    try:
+        await mail.send_message(message)
+    except Exception as error:
+        print("EMAIL WAS NOT SENT\n")
     return {
         "message": "Account created. Check your email to verify your account.",
         "user": new_user

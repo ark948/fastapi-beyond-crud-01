@@ -33,11 +33,14 @@ psql commands:
 > select * from <table name> where false; (a select that will return nothing, just to see all column names)
 
 
+
+
+
 {
-  "first_name": "test",
-  "last_name": "user",
-  "username": "user1",
-  "email": "test1@test.com",
+  "first_name": "john",
+  "last_name": "doe",
+  "username": "johndoe2",
+  "email": "johndoe2@co.com",
   "password": "test1234"
 }
 
@@ -45,18 +48,9 @@ psql commands:
 {
   "first_name": "john",
   "last_name": "doe",
-  "username": "johndoe",
-  "email": "johndoe@co.com",
+  "username": "johndoe3",
+  "email": "johndoe3@co.com",
   "password": "test1234"
-}
-
-
-{
-    "username": "carl1",
-    "email": "carl1@co.com",
-    "first_name": "Carl",
-    "last_name": "Johnson",
-    "password": "test123"
 }
 
 
