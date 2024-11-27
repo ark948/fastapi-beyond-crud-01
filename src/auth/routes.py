@@ -10,6 +10,7 @@ from src.auth.dependencies import TokenBearer, AccessTokenBearer, RefreshTokenBe
 from src.db.redis import add_jti_to_blocklist
 from src.mail import create_message, mail
 from src.config import Config
+from src.tasks.actions import send_email
 from typing import Dict
 from src.errors import (
     UserAlreadyExists,
@@ -34,13 +35,9 @@ REFRESH_TOKEN_EXPIRY = 2
 async def send_mail(emails: EmailModel):
     emails = emails.addresses
     html = "<h1>Welcome to our app bookly.</h1>"
-    message = create_message(
-        recipient=emails,
-        subject="Welcome",
-        body=html
-    )
+    
+    send_email(recipient=emails, subject="Welcome to app", body=html)
 
-    await mail.send_message(message)
     return {
         "message": "Email sent successfully"
     }
@@ -60,24 +57,18 @@ async def create_user_account(
     new_user = await user_service.create_user(user_data, session)
     token = create_url_safe_token({"email": email})
     link = f"http://{Config.DOMAIN}/api/v1/auth/verify/{token}"
+    print("\n", link, "\n")
+
     html_message = f"""
         <h1>Verify your email</h1>
         <p>Please click on this <a href="{link}">link</a> to verify your email</p>
         """
-    try:
+    
+    emails = [email]
 
-        message = create_message(
-            recipient=[email],
-            subject="Verify your email",
-            body=html_message
-        )
-    except Exception as error:
-        print("MESSAGE WAS NOT CREATED\n")
-    print("\n\n", link, "\n\n")
-    try:
-        bg_tasks.add_task(mail.send_message, message)
-    except Exception as error:
-        print("EMAIL WAS NOT SENT\n")
+    send_email(recipient=emails, subject="Verify your email", body=html_message)
+    
+
     return {
         "message": "Account created. Check your email to verify your account.",
         "user": new_user
@@ -159,7 +150,7 @@ async def get_current_user(user=Depends(get_current_user), _: bool = Depends(rol
 @auth_router.get('/logout')
 async def revoke_token(token_details: dict = Depends(AccessTokenBearer())):
     jti = token_details['jti']
-    await add_jti_to_blocklist(jti)
+    await add_jti_to_blocklist(jti) 
     return JSONResponse(
         content={"message": "Logged out successfully"}, status_code=status.HTTP_200_OK
     )

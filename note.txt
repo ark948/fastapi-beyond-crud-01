@@ -34,9 +34,6 @@ psql commands:
 
 
 
-
-10.21
-
 > pip install pyjwt
 
 NOTE: after introducing alembic lifespan event is no longer needed for creating database (for other things may be required)
@@ -91,3 +88,24 @@ any middleware that works with asgi, can also work with fastapi
 - background tasks
 simple method --> using fastapi background tasks
 more advanced method --> using tools such as celery
+> pip install celery
+celery client -> any code that will work with celery
+these client codes will define the tasks that we will send to celery for execution
+broker -> a borker is a simple a way through which messages are send from celery client to celery worker
+inside a borker will exists a task queue
+celery workers will get the tasks from borker queues and process them to a storage to be sent back to fastapi server
+celery tasks are not async
+to run async code with async we'll use asgiref
+> pip install asgiref
+celery works with redis, rabbitmq, and amazon sqs
+to work with celery and redis, redis needs a url (instead of regular host and port)
+to run celery
+>
+
+
+10.50
+
+
+docker run -p 6379:6379 -it redis/redis-stack:latest
+
+celery -A src.tasks worker --loglevel=INFO --pool=solo
