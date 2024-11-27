@@ -84,3 +84,10 @@ any middleware that works with asgi, can also work with fastapi
 
 - password reset
 (password reset works, but need a way to revoke old tokens after password is successfully reset)
+
+
+
+
+- background tasks
+simple method --> using fastapi background tasks
+more advanced method --> using tools such as celery

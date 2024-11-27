@@ -42,3 +42,13 @@ verified account
   "email": "johndoe3@co.com",
   "password": "test1234" -> resetted to test1234test
 }
+
+
+verified
+{
+  "first_name": "john",
+  "last_name": "doe",
+  "username": "johndoe4",
+  "email": "johndoe4@co.com",
+  "password": "test1234"
+}

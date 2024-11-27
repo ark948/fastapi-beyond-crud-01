@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from src.auth.schemas import UserCreateModel, UserModel, UserLoginModel, UserBooksModel, EmailModel, PasswordResetRequestModel, PasswordResetConfirmModel
 from src.auth.service import UserService
 from src.db.main import get_session
@@ -47,7 +47,11 @@ async def send_mail(emails: EmailModel):
 
 
 @auth_router.post('/signup', response_model=Dict, status_code=status.HTTP_201_CREATED)
-async def create_user_account(user_data: UserCreateModel, session: AsyncSession = Depends(get_session)):
+async def create_user_account(
+    user_data: UserCreateModel,
+    bg_tasks: BackgroundTasks,
+    session: AsyncSession = Depends(get_session)
+    ):
     email = user_data.email
     user_exists = await user_service.user_exists(email, session)
     if user_exists:
@@ -71,7 +75,7 @@ async def create_user_account(user_data: UserCreateModel, session: AsyncSession 
         print("MESSAGE WAS NOT CREATED\n")
     print("\n\n", link, "\n\n")
     try:
-        await mail.send_message(message)
+        bg_tasks.add_task(mail.send_message, message)
     except Exception as error:
         print("EMAIL WAS NOT SENT\n")
     return {
