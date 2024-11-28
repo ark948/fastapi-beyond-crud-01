@@ -22,6 +22,11 @@ app = FastAPI(
     title="Bookly",
     description="A book api book review service.",
     version=version,
+    terms_of_service="be good",
+    docs_url=f"/api/{version}/docs",
+    contact={
+        "email": "someemail@email.com"
+    }
 )
 
 

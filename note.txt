@@ -103,7 +103,7 @@ to run celery
 >
 
 
-10.50
+11.56
 
 
 docker run -p 6379:6379 -it redis/redis-stack:latest
